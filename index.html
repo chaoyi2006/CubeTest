@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+
+
+</head>
+
+<body>
+
+    <script>
+        const moves = ["U", "F", "R", "L", "B", "D"];
+        const postfix = ["", "2", "'"];
+        
+        function generate(scrambleLen) {
+            var scramble = [];
+            for(let i = 0; i < scrambleLen; i++) {
+                scramble[i] = [Math.floor(Math.random() * 6), postfix[Math.floor(Math.random() * 3)]];
+            }
+            return scramble;
+        }
+        
+        function valid(scramble) {
+            for(let i = 2; i < scramble.length; i++) {
+                while(scramble[i][0] == scramble[i - 2][0] && scramble[i][0] == 5 - scramble[i - 1][0]) {
+                    scramble[i] = [Math.floor(Math.random() * 6), postfix[Math.floor(Math.random() * 3)]];
+                }
+            }
+            for(let i = 1; i < scramble.length; i++) {
+                while(scramble[i][0] == scramble[i - 1][0]) {
+                    scramble[i] = [Math.floor(Math.random() * 6), postfix[Math.floor(Math.random() * 3)]];
+                }
+            }
+            return scramble;
+        }
+        
+        function format(scramble) {
+            var ret = []
+            for(let i = 0; i < scramble.length; i++) {
+                ret[i] = moves[scramble[i][0]] + scramble[i][1];
+            }
+            return ret;
+        }
+        
+        function display(scramble) {
+            for(let i = 0; i < scramble.length; i++) {
+                document.write(scramble[i] + " ");
+            }
+            document.write("[" + scramble.length + "]");
+        }
+        
+        
+        display(format(valid(generate(Math.floor(Math.random() * 6) + 25))));
+    </script>
+    
+    <!-- <button onclick="display(format(valid(generate(Math.floor(Math.random() * 6) + 25)))))">Generate a Scramble!</button> -->
+</body>
