@@ -47,9 +47,22 @@
             document.write("[" + scramble.length + "]");
         }
         
+        function writeScrambles(amount) {
+            for(let i = 1; i <= amount; i++) {
+                document.write(i + ". ");
+                display(format(valid(generate(Math.floor(Math.random() * 6) + 25))));
+                document.write("<br>");
+            } 
+        }
         
-        display(format(valid(generate(Math.floor(Math.random() * 6) + 25))));
+        writeScrambles(5);
+        
     </script>
     
-    <!-- <button onclick="display(format(valid(generate(Math.floor(Math.random() * 6) + 25)))))">Generate a Scramble!</button> -->
+    
+    
+    <!-- <button onclick="">Generate Scrambles!</button> -->
+    
+    
+    
 </body>
