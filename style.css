@@ -1,0 +1,24 @@
+html {
+    background-color: lightgray;
+    font-size: 22px;
+    padding-left: 80px;
+    font-family: sans-serif;
+}
+
+button {
+    display: block;
+    background-color: whitesmoke;
+    margin: auto;
+    padding: 20px;
+    width: 200px;
+    font-size: 28px;
+}
+
+button:hover {
+    background-color: white;
+}
+
+p {
+    letter-spacing: 1px;
+    line-height: 2;
+}
