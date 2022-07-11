@@ -31,21 +31,59 @@ function format(scramble) {
     return ret;
 }
 
-function printScrambles() {
+function printScrambles(scrambleCnt) {
     var scrambleNum;
     var ret = "";
-    for(let i = 0; i < 5; i++) {
+    for(let i = 0; i < scrambleCnt; i++) {
         var scrambleNum = i + 1;
-        ret += scrambleNum.toString() + ". ";
+        if(scrambleCnt != 1) ret += scrambleNum.toString() + ". ";
         scramble = generate(Math.floor(Math.random() * 6) + 25)
         scramble = valid(scramble);
         scramble = format(scramble);
         for(let j = 0; j < scramble.length; j++) {
             ret += scramble[j] + " ";
         }
-        ret += "[" + scramble.length + "]<br>";
     }
-    document.getElementById("ctx").innerHTML = ret;
+    document.getElementById("scramble").innerHTML = ret;
 }
 
-printScrambles();
+window.onload = function(){
+    var writeto = document.getElementById("timer");
+    var space_bar = 32;
+    var prevKeyUpAt = 0;
+    var holding = false;
+    var active = false;
+    window.onkeydown = function(ctx){
+        if(active) {
+            writeto.innerHTML = "Timer Stopped!";
+            active = false;
+        }
+        if(ctx.keyCode === space_bar) {
+            if(!holding) writeto.innerHTML = "Keep Holding!";
+            var keyDownAt = new Date();
+            setTimeout(function() {
+                if(+keyDownAt > +prevKeyUpAt) {
+                    holding = true;
+                    writeto.innerHTML = "Release to Start the Timer!";
+                }
+                else {
+                    holding = false;
+                }
+                
+            }, 500);
+        };
+    };
+    window.onkeyup = function(ctx) {
+        if(ctx.keyCode === space_bar) {
+            prevKeyUpAt = new Date();
+            if(holding) {
+                writeto.innerHTML = "Go!";
+                active = true;
+            }
+            else writeto.innerHTML = "Not Held Enough";
+            holding = false;
+        }
+    };
+};
+
+printScrambles(1);

@@ -1,24 +1,31 @@
 html {
-    background-color: lightgray;
-    font-size: 22px;
-    padding-left: 80px;
-    font-family: sans-serif;
+    height: 100%;
+}
+
+body {
+    background-image: linear-gradient(#D1FAFF, #9BD1E5);
+    font-family: sans-serif;;
 }
 
 button {
     display: block;
-    background-color: whitesmoke;
+    background-color: aliceblue;
     margin: auto;
-    padding: 20px;
-    width: 200px;
-    font-size: 28px;
+    padding: 3px;
+    font-size: 16px;
 }
 
 button:hover {
     background-color: white;
 }
 
-p {
+#scramble {
+    font-size: 34px;
     letter-spacing: 1px;
-    line-height: 2;
+    text-align: center;
+}
+
+#timer {
+    font-size: 50px;
+    text-align: center;
 }
