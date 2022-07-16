@@ -47,43 +47,49 @@ function printScrambles(scrambleCnt) {
     document.getElementById("scramble").innerHTML = ret;
 }
 
-window.onload = function(){
-    var writeto = document.getElementById("timer");
-    var space_bar = 32;
-    var prevKeyUpAt = 0;
-    var holding = false;
-    var active = false;
-    window.onkeydown = function(ctx){
-        if(active) {
-            writeto.innerHTML = "Timer Stopped!";
-            active = false;
-        }
-        if(ctx.keyCode === space_bar) {
-            if(!holding) writeto.innerHTML = "Keep Holding!";
-            var keyDownAt = new Date();
-            setTimeout(function() {
-                if(+keyDownAt > +prevKeyUpAt) {
-                    holding = true;
-                    writeto.innerHTML = "Release to Start the Timer!";
-                }
-                else {
-                    holding = false;
-                }
-                
-            }, 500);
-        };
-    };
-    window.onkeyup = function(ctx) {
-        if(ctx.keyCode === space_bar) {
-            prevKeyUpAt = new Date();
-            if(holding) {
-                writeto.innerHTML = "Go!";
-                active = true;
-            }
-            else writeto.innerHTML = "Not Held Enough";
-            holding = false;
-        }
-    };
-};
 
-printScrambles(1);
+window.onload = function() {
+    var active = false;
+    var space_bar = 32;
+    var startAt;
+    
+    printScrambles(1);
+    
+    window.onkeydown = function(ctx) {
+        if(active) {
+            active = false;
+            printScrambles(1);
+            document.getElementById("indicator").innerHTML = "Timer Stopped!";
+        }
+        else if(!active && ctx.keyCode === space_bar) {
+            active = true;
+            startAt = Date.now();
+            document.getElementById("indicator").innerHTML = "Timer Started!";
+            
+            var x = setInterval(function() {
+                
+                var min = document.getElementById("mindisplay");
+                var sec = document.getElementById("secdisplay");
+                var ms = document.getElementById("msdisplay");
+
+                var delta = Date.now() - startAt;
+
+                var minSince = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
+                var secSince = Math.floor((delta % (1000 * 60)) / 1000);
+                var msSince = (delta % 1000 - delta % 10) / 10;
+
+                if(minSince < 10) min.innerHTML = "0" + minSince;
+                else min.innerHTML = minSince;
+
+                if(secSince < 10) sec.innerHTML = "0" + secSince;
+                else sec.innerHTML = secSince;
+
+                if(msSince < 10) ms.innerHTML = "0" + msSince;
+                else ms.innerHTML = msSince;
+                
+                if(!active) clearInterval(x);
+                
+            }, 10);
+        }
+    }
+}
