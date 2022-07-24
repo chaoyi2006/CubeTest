@@ -11,6 +11,7 @@ window.onload = function() {
         if(active) {
             document.getElementById("indicator").innerHTML = "Timer Stopped!";
             active = false;
+            printScrambles(1);
         }
         else if(!held && ctx.keyCode === spaceBar) {
             holdStartAt = Date.now();

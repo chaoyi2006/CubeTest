@@ -22,7 +22,7 @@ button:hover {
 
 #scramble {
     font-size: 32px;
-    letter-spacing: 1px;
+    word-spacing: 4px;
 }
 
 #timer {
