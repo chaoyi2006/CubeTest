@@ -6,9 +6,10 @@ window.onload = function() {
     var held = false;
     var active = false;
     var spaceBar = 32;
-    
+
     window.onkeydown = function(ctx) {
         if(active) {
+            updateTimes([sec.innerHTML, ms.innerHTML]);
             document.getElementById("indicator").innerHTML = "Timer Stopped!";
             active = false;
             printScrambles(1);
@@ -32,18 +33,13 @@ window.onload = function() {
                 startAt = Date.now();
                 var x = setInterval(function() {
                     
-                    var min = document.getElementById("min");
                     var sec = document.getElementById("sec");
                     var ms = document.getElementById("ms");
 
                     var delta = Date.now() - startAt;
                     
-                    var minSince = Math.floor((delta % (1000 * 60 * 60)) / (1000 * 60));
                     var secSince = Math.floor((delta % (1000 * 60)) / 1000);
                     var msSince = (delta % 1000 - delta % 10) / 10;
-
-                    if(minSince < 10) min.innerHTML = "0" + minSince;
-                    else min.innerHTML = minSince;
 
                     if(secSince < 10) sec.innerHTML = "0" + secSince;
                     else sec.innerHTML = secSince;
@@ -60,5 +56,79 @@ window.onload = function() {
             }
             held = false;
         }
+    }
+}
+
+var prevTimes = [];
+var displayTimes = [];
+    
+var solveCnt = 0;
+
+function updateTimes(time) {
+    
+    prevTimes.push(time);
+    
+    solveCnt++;
+    
+    displayTimes.push("Solve " + (solveCnt) + ": " + time[0] + "." + (parseInt(time[1]) + 1) + "<br>");
+    
+    document.getElementById("prevTimes").innerHTML += displayTimes[solveCnt - 1];
+    
+    if(solveCnt >= 3) {
+        var recent3 = prevTimes.slice(solveCnt - 3, solveCnt);
+        
+        var totSecs3 = 0;
+        
+        for(let i = 0; i < 3; i++) {
+            totSecs3 += parseInt(recent3[i][0]) + (parseInt(recent3[i][1]) + 1) / 100;
+        }
+        
+        totSecs3 /= 3;
+        
+        document.getElementById("mo3").innerHTML = "mo3: " + Math.round(totSecs3 * 100) / 100 + "<br>";
+    }
+    
+    if(solveCnt >= 5) {
+        var recent5 = prevTimes.slice(solveCnt - 5, solveCnt);
+
+        for(let i = 0; i < 5; i++) {
+            recent5[i] = parseInt(recent5[i][0]) + (parseInt(recent5[i][1]) + 1) / 100;
+        }
+        
+        recent5.sort();
+        
+        console.log(recent5);
+        
+        var totSecs5 = 0;
+        
+        for(let i = 1; i < 4; i++) {
+            totSecs5 += recent5[i];
+        }
+        
+        totSecs5 /= 3;
+        
+        document.getElementById("ao5").innerHTML = "ao5: " + Math.round(totSecs5 * 100) / 100 + "<br>";
+    }
+    
+    if(solveCnt >= 12) {
+        var recent12 = prevTimes.slice(solveCnt - 12, solveCnt);
+
+        for(let i = 0; i < 12; i++) {
+            recent12[i] = parseInt(recent12[i][0]) + (parseInt(recent12[i][1]) + 1) / 100;
+        }
+        
+        recent12.sort();
+        
+        console.log(recent12);
+        
+        var totSecs12 = 0;
+        
+        for(let i = 1; i < 11; i++) {
+            totSecs12 += recent12[i];
+        }
+        
+        totSecs12 /= 10;
+        
+        document.getElementById("ao12").innerHTML = "ao12: " + Math.round(totSecs12 * 100) / 100 + "<br>";
     }
 }
