@@ -70,7 +70,13 @@ function updateTimes(time) {
     
     solveCnt++;
     
-    displayTimes.push("Solve " + (solveCnt) + ": " + time[0] + "." + (parseInt(time[1]) + 1) + "<br>");
+    var solveTime = (parseInt(time[0]) + (parseInt(time[1]) + 1) / 100);
+    
+    if(Math.floor(solveTime * 10) == solveTime * 10) {
+        solveTime += "0";
+    }
+    
+    displayTimes.push("Solve " + (solveCnt) + ": " + solveTime + "<br>");
     
     document.getElementById("prevTimes").innerHTML += displayTimes[solveCnt - 1];
     
@@ -85,7 +91,13 @@ function updateTimes(time) {
         
         totSecs3 /= 3;
         
-        document.getElementById("mo3").innerHTML = "mo3: " + Math.round(totSecs3 * 100) / 100 + "<br>";
+        var mo3 = Math.round(totSecs3 * 100) / 100;
+        
+        if(Math.floor(mo3 * 10) == mo3 * 10) {
+            mo3 += "0";
+        }
+        
+        document.getElementById("mo3").innerHTML = "mo3: " + mo3 + "<br>";
     }
     
     if(solveCnt >= 5) {
@@ -107,7 +119,13 @@ function updateTimes(time) {
         
         totSecs5 /= 3;
         
-        document.getElementById("ao5").innerHTML = "ao5: " + Math.round(totSecs5 * 100) / 100 + "<br>";
+        var ao5 = Math.round(totSecs5 * 100) / 100;
+    
+        if(Math.floor(ao5 * 10) == ao5 * 10) {
+            ao5 += "0";
+        }
+        
+        document.getElementById("ao5").innerHTML = "ao5: " + ao5 + "<br>";
     }
     
     if(solveCnt >= 12) {
@@ -129,6 +147,12 @@ function updateTimes(time) {
         
         totSecs12 /= 10;
         
-        document.getElementById("ao12").innerHTML = "ao12: " + Math.round(totSecs12 * 100) / 100 + "<br>";
+        var ao12 = Math.round(totSecs12 * 100) / 100;
+    
+        if(Math.floor(ao12 * 10) == ao12 * 10) {
+            ao12 += "0";
+        }
+        
+        document.getElementById("ao12").innerHTML = "ao12: " + ao12 + "<br>";
     }
 }
