@@ -62,7 +62,8 @@ window.onload = function() {
 
 var prevTimes = [];
 var displayTimes = [];
-    
+var scramblesTrack = "";
+
 var solveCnt = 0;
 
 function updateTimes(time) {
@@ -78,8 +79,8 @@ function updateTimes(time) {
     }
     
     var scramble = document.getElementById("scramble").innerHTML;
-    displayTimes.push("Solve " + (solveCnt) + ": " + solveTime + " Scramble: " + scramble + "<br>");
-
+    displayTimes.push("Solve " + (solveCnt) + ": " + solveTime + "<br> Scramble: " + scramble + "<br><br>");
+    scramblesTrack += "Solve " + (solveCnt) + ": " + solveTime + "\n" + "Scramble: " + scramble + "\n\n";
     document.getElementById("prevTimes").innerHTML += displayTimes[solveCnt - 1];
     
     if(solveCnt >= 3) {
