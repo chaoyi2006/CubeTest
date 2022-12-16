@@ -12,6 +12,7 @@ window.onload = function() {
             updateTimes([sec.innerHTML, ms.innerHTML]);
             document.getElementById("indicator").innerHTML = "Timer Stopped!";
             active = false;
+            
             printScrambles(1);
         }
         else if(!held && ctx.keyCode === spaceBar) {
@@ -76,8 +77,9 @@ function updateTimes(time) {
         solveTime += "0";
     }
     
-    displayTimes.push("Solve " + (solveCnt) + ": " + solveTime + "<br>");
-    
+    var scramble = document.getElementById("scramble").innerHTML;
+    displayTimes.push("Solve " + (solveCnt) + ": " + solveTime + " Scramble: " + scramble + "<br>");
+
     document.getElementById("prevTimes").innerHTML += displayTimes[solveCnt - 1];
     
     if(solveCnt >= 3) {
