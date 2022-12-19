@@ -79,7 +79,7 @@ function updateTimes(time) {
     }
     
     var scramble = document.getElementById("scramble").innerHTML;
-    displayTimes.push("Solve " + (solveCnt) + ": " + solveTime + "<br> Scramble: " + scramble + "<br><br>");
+    displayTimes.push(solveCnt + ": " + solveTime + "<br>");
     scramblesTrack += "Solve " + (solveCnt) + ": " + solveTime + "\n" + "Scramble: " + scramble + "\n\n";
     document.getElementById("prevTimes").innerHTML += displayTimes[solveCnt - 1];
     
