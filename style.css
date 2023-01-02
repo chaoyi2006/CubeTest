@@ -8,6 +8,10 @@ body {
     font-family: sans-serif;
 }
 
+h1 {
+    font-size: 32px;
+}
+
 button {
     display: block;
     background-color: aliceblue;
@@ -46,4 +50,10 @@ button:hover {
 
 #timeCalcs {
     font-size: 24px;
+}
+
+#mission {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
 }
